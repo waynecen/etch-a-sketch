@@ -1,0 +1,333 @@
+[33mcommit 63cb4ee6829f0adc6c31aac98a40b00799b180fb[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Wayne <wayne.cen@gmail.com>
+Date:   Tue Nov 16 13:00:33 2021 -0500
+
+    [WC] Initial Commit for Etch-A-Sketch
+    
+    Started foundation for etch-a-sketch, using JS to create div grid, styling with CSS and Sass - Bootstrap framework was only included for initial testing and learning.
+
+[1mdiff --git a/css/style.css b/css/style.css[m
+[1mnew file mode 100644[m
+[1mindex 0000000..770a2c5[m
+[1m--- /dev/null[m
+[1m+++ b/css/style.css[m
+[36m@@ -0,0 +1,130 @@[m
+[32m+[m[32m@charset "UTF-8";[m
+[32m+[m[32m/* stylesheet for etch-a-sketch */[m
+[32m+[m[32m* {[m
+[32m+[m[32m  box-sizing: border-box;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mhtml, body {[m
+[32m+[m[32m  min-height: 100%;[m
+[32m+[m[32m  background: #fff;[m
+[32m+[m[32m  color: #000;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* sets the body height of the browser, so that backgrounds and div heights work correctly. Color and background will almost certainly be altered; they are just placeholders */[m
+[32m+[m[32mbody {[m
+[32m+[m[32m  font-size: 1.4rem;[m
+[32m+[m[32m  text-rendering: optimizeLegibility;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* sets the base font size for the document; turns on kerning pairs and ligatures */[m
+[32m+[m[32mbody, ul, ol, dl {[m
+[32m+[m[32m  margin: 0;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32marticle, aside, audio,[m
+[32m+[m[32mfooter, header, nav, section, video {[m
+[32m+[m[32m  display: block;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* ensures that older browsers will display HTML5 elements correctly */[m
+[32m+[m[32mh1 {[m
+[32m+[m[32m  font-size: 1.4rem;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* begins to set up font sizes relative to base rem – h1 has been used as an example */[m
+[32m+[m[32mp {[m
+[32m+[m[32m  -ms-word-break: break-all;[m
+[32m+[m[32m  word-break: break-all;[m
+[32m+[m[32m  word-break: break-word;[m
+[32m+[m[32m  -moz-hyphens: auto;[m
+[32m+[m[32m  -webkit-hyphens: auto;[m
+[32m+[m[32m  -ms-hyphens: auto;[m
+[32m+[m[32m  hyphens: auto;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* sets hyphenation by default on paragraphs */[m
+[32m+[m[32mtextarea {[m
+[32m+[m[32m  resize: vertical;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* changes textarea resizing from "both" (UA default) to vertical only */[m
+[32m+[m[32mtable {[m
+[32m+[m[32m  border-collapse: collapse;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mtd {[m
+[32m+[m[32m  padding: 0.5rem;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* causes tables to actually look like tables */[m
+[32m+[m[32mimg {[m
+[32m+[m[32m  border: none;[m
+[32m+[m[32m  max-width: 100%;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* removes outlines from linked images (for older browsers and IE), sets up images for responsive design layout */[m
+[32m+[m[32minput[type=submit]::-moz-focus-inner,[m
+[32m+[m[32minput[type=button]::-moz-focus-inner {[m
+[32m+[m[32m  border: 0px;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* removes the inner border effect from focused buttons for form elements in Firefox */[m
+[32m+[m[32minput[type=search] {[m
+[32m+[m[32m  -webkit-appearance: textfield;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32minput[type=submit] {[m
+[32m+[m[32m  -webkit-appearance: none;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* removes the OS X appearance from HTML5 search inputs and submit buttons when viewed in Safari */[m
+[32m+[m[32minput:required:after {[m
+[32m+[m[32m  color: #f00;[m
+[32m+[m[32m  content: " *";[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* sets up required form fields with the conventional following red asterix */[m
+[32m+[m[32minput[type=email]:invalid {[m
+[32m+[m[32m  background: #f00;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* causes a visual alert in browsers that do client-side checking of HTML5 email field – this may already be the default in some browsers. */[m
+[32m+[m[32m.right {[m
+[32m+[m[32m  float: right;[m
+[32m+[m[32m  margin-left: 2rem;[m
+[32m+[m[32m  clear: right;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.left {[m
+[32m+[m[32m  float: left;[m
+[32m+[m[32m  margin-right: 2rem;[m
+[32m+[m[32m  clear: left;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* allows a quick shortcut for floating elements left and right while avoiding the “float quirk” problem */[m
+[32m+[m[32msub, sup {[m
+[32m+[m[32m  line-height: 0;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* sets superscript and subscript text so that it doesn't throw off leading for elements in which they are included */[m
+[32m+[m[32m#container {[m
+[32m+[m[32m  background-color: blue;[m
+[32m+[m[32m  margin: auto;[m
+[32m+[m[32m  display: flex;[m
+[32m+[m[32m  max-width: 960px;[m
+[32m+[m[32m  width: 50%;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.row {[m
+[32m+[m[32m  display: flex;[m
+[32m+[m[32m  max-width: 960px;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.box {[m
+[32m+[m[32m  text-align: center;[m
+[32m+[m[32m  display: flex;[m
+[32m+[m[32m  background-color: yellow;[m
+[32m+[m[32m  width: 240px;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/*# sourceMappingURL=style.css.map */[m
+[1mdiff --git a/css/style.css.map b/css/style.css.map[m
+[1mnew file mode 100644[m
+[1mindex 0000000..26a2511[m
+[1m--- /dev/null[m
+[1m+++ b/css/style.css.map[m
+[36m@@ -0,0 +1 @@[m
+[32m+[m[32m{"version":3,"sourceRoot":"","sources":["style.scss"],"names":[],"mappings":";AAAA;AAIA;EACC;;;AAED;EACC;EACA;EACA;;;AAEA;AAED;EACC;EACA;;;AAEA;AAED;EACC;;;AAED;AAAA;EAEC;;;AAGA;AAED;EACC;;;AAEA;AAED;EACC;EACA;EACA;EACA;EACA;EACA;EACA;;;AAEA;AAED;EACC;;;AAEA;AAED;EAAQ;;;AACR;EACC;;;AAEA;AAED;EACC;EACA;;;AAEA;AAED;AAAA;EAEE;;;AAED;AAED;EACC;;;AAED;EACC;;;AAEA;AAED;EACC;EACA;;;AAEA;AACD;EACC;;;AAEA;AAED;EACC;EACA;EACA;;;AAED;EACC;EACA;EACA;;;AAEA;AAED;EACC;;;AAEG;AAEJ;EACI;EACA;EACA;EACA,WA1GO;EA2GP;;;AAGJ;EACI;EACA;;;AAIJ;EACI;EACA;EACA;EACA","file":"style.css"}[m
+\ No newline at end of file[m
+[1mdiff --git a/css/style.scss b/css/style.scss[m
+[1mnew file mode 100644[m
+[1mindex 0000000..8491624[m
+[1m--- /dev/null[m
+[1m+++ b/css/style.scss[m
+[36m@@ -0,0 +1,125 @@[m
+[32m+[m[32m/* stylesheet for etch-a-sketch */[m
+[32m+[m[32m@use "sass:math";[m
+[32m+[m[32m$nine-six: 960px;[m
+[32m+[m
+[32m+[m[32m* {[m[41m [m
+[32m+[m	[32mbox-sizing: border-box;[m
+[32m+[m[32m}[m
+[32m+[m[32mhtml, body {[m
+[32m+[m	[32mmin-height: 100%;[m
+[32m+[m	[32mbackground: #fff;[m
+[32m+[m	[32mcolor: #000;[m
+[32m+[m[32m}[m
+[32m+[m	[32m/* sets the body height of the browser, so that backgrounds and div heights work correctly. Color and background will almost certainly be altered; they are just placeholders */[m
+[32m+[m[41m	[m
+[32m+[m[32mbody {[m
+[32m+[m	[32mfont-size: 1.4rem;[m
+[32m+[m	[32mtext-rendering: optimizeLegibility;[m
+[32m+[m[32m}[m
+[32m+[m	[32m/* sets the base font size for the document; turns on kerning pairs and ligatures */[m
+[32m+[m[41m	[m
+[32m+[m[32mbody, ul, ol, dl {[m
+[32m+[m	[32mmargin: 0;[m
+[32m+[m[32m}[m
+[32m+[m[32marticle, aside, audio,[m[41m [m
+[32m+[m[32mfooter, header, nav, section, video {[m
+[32m+[m	[32mdisplay: block;[m[41m [m
+[32m+[m	[32m}[m
+[32m+[m[41m	[m
+[32m+[m	[32m/* ensures that older browsers will display HTML5 elements correctly */[m
+[32m+[m[41m	[m
+[32m+[m[32mh1 {[m
+[32m+[m	[32mfont-size: 1.4rem;[m
+[32m+[m[32m}[m
+[32m+[m	[32m/* begins to set up font sizes relative to base rem – h1 has been used as an example */[m
+[32m+[m[41m	[m
+[32m+[m[32mp {[m[41m [m
+[32m+[m	[32m-ms-word-break: break-all;[m
+[32m+[m	[32mword-break: break-all;[m
+[32m+[m	[32mword-break: break-word;[m
+[32m+[m	[32m-moz-hyphens: auto;[m
+[32m+[m	[32m-webkit-hyphens: auto;[m
+[32m+[m	[32m-ms-hyphens: auto;[m
+[32m+[m	[32mhyphens: auto;[m
+[32m+[m[32m}[m[41m [m
+[32m+[m	[32m/* sets hyphenation by default on paragraphs */[m
+[32m+[m[41m	[m
+[32m+[m[32mtextarea {[m[41m [m
+[32m+[m	[32mresize: vertical;[m
+[32m+[m[32m}[m
+[32m+[m[32m /* changes textarea resizing from "both" (UA default) to vertical only */[m
+[32m+[m[41m [m
+[32m+[m[32mtable { border-collapse: collapse; }[m
+[32m+[m[32mtd {[m
+[32m+[m	[32mpadding: .5rem;[m
+[32m+[m[32m}[m
+[32m+[m	[32m/* causes tables to actually look like tables */[m
+[32m+[m[41m	[m
+[32m+[m[32mimg {[m[41m [m
+[32m+[m	[32mborder: none;[m
+[32m+[m	[32mmax-width: 100%;[m
+[32m+[m[32m}[m
+[32m+[m	[32m/* removes outlines from linked images (for older browsers and IE), sets up images for responsive design layout */[m
+[32m+[m[41m	[m
+[32m+[m[32minput[type="submit"]::-moz-focus-inner,[m[41m [m
+[32m+[m	[32minput[type="button"]::-moz-focus-inner {[m
+[32m+[m		[32mborder : 0px;[m
+[32m+[m	[32m}[m
+[32m+[m	[32m/* removes the inner border effect from focused buttons for form elements in Firefox */[m
+[32m+[m[41m	[m
+[32m+[m[32minput[type="search"] {[m[41m [m
+[32m+[m	[32m-webkit-appearance: textfield;[m
+[32m+[m[32m}[m[41m [m
+[32m+[m[32minput[type="submit"] {[m[41m [m
+[32m+[m	[32m-webkit-appearance:none;[m
+[32m+[m[32m}[m
+[32m+[m	[32m/* removes the OS X appearance from HTML5 search inputs and submit buttons when viewed in Safari */[m
+[32m+[m[41m	[m
+[32m+[m[32minput:required:after {[m
+[32m+[m	[32mcolor: #f00;[m
+[32m+[m	[32mcontent: " *";[m
+[32m+[m[32m}[m
+[32m+[m	[32m/* sets up required form fields with the conventional following red asterix */[m
+[32m+[m[32minput[type="email"]:invalid {[m[41m [m
+[32m+[m	[32mbackground: #f00;[m
+[32m+[m[32m}[m
+[32m+[m	[32m/* causes a visual alert in browsers that do client-side checking of HTML5 email field – this may already be the default in some browsers. */[m
+[32m+[m[41m	[m
+[32m+[m[32m.right {[m[41m [m
+[32m+[m	[32mfloat: right;[m
+[32m+[m	[32mmargin-left: 2rem;[m
+[32m+[m	[32mclear: right;[m
+[32m+[m[32m}[m
+[32m+[m[32m.left {[m[41m [m
+[32m+[m	[32mfloat: left;[m
+[32m+[m	[32mmargin-right: 2rem;[m
+[32m+[m	[32mclear: left;[m
+[32m+[m[32m}[m
+[32m+[m	[32m/* allows a quick shortcut for floating elements left and right while avoiding the “float quirk” problem */[m
+[32m+[m[41m	[m
+[32m+[m[32msub, sup {[m[41m [m
+[32m+[m	[32mline-height: 0;[m
+[32m+[m[32m}[m
+[32m+[m[32m    /* sets superscript and subscript text so that it doesn't throw off leading for elements in which they are included */[m
+[32m+[m
+[32m+[m[32m#container {[m
+[32m+[m[32m    background-color: blue;[m
+[32m+[m[32m    margin: auto;[m
+[32m+[m[32m    display: flex;[m
+[32m+[m[32m    max-width: $nine-six;[m
+[32m+[m[32m    width: 50%;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.row {[m
+[32m+[m[32m    display: flex;[m
+[32m+[m[32m    max-width: 960px;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m
+[32m+[m[32m.box {[m
+[32m+[m[32m    text-align: center;[m
+[32m+[m[32m    display: flex;[m
+[32m+[m[32m    background-color: yellow;[m
+[32m+[m[32m    width: math.div($nine-six, 4);[m
+[32m+[m[32m}[m
+[32m+[m
+[1mdiff --git a/index.html b/index.html[m
+[1mnew file mode 100644[m
+[1mindex 0000000..a276351[m
+[1m--- /dev/null[m
+[1m+++ b/index.html[m
+[36m@@ -0,0 +1,22 @@[m
+[32m+[m[32m<!DOCTYPE html>[m
+[32m+[m[32m<html lang="en">[m
+[32m+[m[32m<head>[m
+[32m+[m[32m    <meta charset="UTF-8">[m
+[32m+[m[32m    <meta http-equiv="X-UA-Compatible" content="IE=edge">[m
+[32m+[m[32m    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">[m
+[32m+[m[32m    <title>Etch A Sketch</title>[m
+[32m+[m
+[32m+[m[32m    <!--Bootstrap CSS-->[m
+[32m+[m[32m    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">[m
+[32m+[m[32m    <link rel="stylesheet" href ="css/style.css">[m
+[32m+[m[32m    <script src="js/index.js" defer></script>[m
+[32m+[m[32m</head>[m
+[32m+[m[32m<body>[m
+[32m+[m[32m    <div id="container"></div>[m
+[32m+[m
+[32m+[m[32m    <!--Bootstrap Optional JS Dependency-->[m
+[32m+[m[32m    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>[m
+[32m+[m[32m    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>[m
+[32m+[m[32m    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>[m
+[32m+[m[32m</body>[m
+[32m+[m[32m</html>[m
+\ No newline at end of file[m
+[1mdiff --git a/js/index.js b/js/index.js[m
+[1mnew file mode 100644[m
+[1mindex 0000000..c43279d[m
+[1m--- /dev/null[m
+[1m+++ b/js/index.js[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m//script for etch-a-sketch[m
+[32m+[m[32mconst container = document.querySelector('#container');[m
+[32m+[m
+[32m+[m[32mconst content = document.createElement('div');[m
+[32m+[m[32mcontent.classList.add('content');[m
+[32m+[m[32mcontainer.appendChild(content);[m
+[32m+[m
+[32m+[m[32mconst row = document.createElement('div');[m
+[32m+[m[32mrow.classList.add('row');[m
+[32m+[m[32mcontent.appendChild(row);[m
+[32m+[m
+[32m+[m[32mconst box = document.createElement('div');[m
+[32m+[m[32mbox.classList.add('box');[m
+[32m+[m[32mbox.textContent = 'boo';[m
+[32m+[m[32mrow.appendChild(box);[m
