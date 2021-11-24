@@ -3,7 +3,7 @@ const container = document.querySelector('#container');
 
 let num = prompt('Enter grid size (max value-100):');
 
-function gridDiv () {
+function gridDiv() {
    
         const content = document.createElement('div');
         content.classList.add('content');
